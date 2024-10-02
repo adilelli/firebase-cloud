@@ -7,18 +7,20 @@ importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js')
 // Initialize the Firebase app in the service worker by passing in
 // your app's Firebase config object.
 // https://firebase.google.com/docs/web/setup#config-object
-firebase.initializeApp({
-    apiKey: "AIzaSyBZXOdtYpkX4eh5GBUW8uu0p4MqmklgFXE",
-    authDomain: "hello-notification-2db39.firebaseapp.com",
-    projectId: "hello-notification-2db39",
-    storageBucket: "hello-notification-2db39.appspot.com",
-    messagingSenderId: "187164567341",
-    appId: "1:187164567341:web:288e2201706b683e0f55a4",
-    measurementId: "G-L5HTRYKJ8E"
-  });
+const firebaseConfig = {
+  apiKey: "AIzaSyAuSSVXoyOBYHlc3PugjNiCtxT13DADuP0",
+  authDomain: "moei-wallet.firebaseapp.com",
+  projectId: "moei-wallet",
+  storageBucket: "moei-wallet.appspot.com",
+  messagingSenderId: "904816777335",
+  appId: "1:904816777335:web:925c436da28133debe4e72",
+  measurementId: "G-3K6RYQ113L"
+};
 
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.
+// Initialize Firebase app
+firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {

@@ -2,33 +2,47 @@
 import HelloWorld from './components/HelloWorld.vue'
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { useToast } from 'vue-toastification';
+// import { claimComponent } from './claimComponent.vue'
+import claimComponent from './claimComponent.vue';
+import { saveFcm } from './notification-service.js';
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBZXOdtYpkX4eh5GBUW8uu0p4MqmklgFXE",
-  authDomain: "hello-notification-2db39.firebaseapp.com",
-  projectId: "hello-notification-2db39",
-  storageBucket: "hello-notification-2db39.appspot.com",
-  messagingSenderId: "187164567341",
-  appId: "1:187164567341:web:288e2201706b683e0f55a4",
-  measurementId: "G-L5HTRYKJ8E"
+  apiKey: "AIzaSyAuSSVXoyOBYHlc3PugjNiCtxT13DADuP0",
+  authDomain: "moei-wallet.firebaseapp.com",
+  projectId: "moei-wallet",
+  storageBucket: "moei-wallet.appspot.com",
+  messagingSenderId: "904816777335",
+  appId: "1:904816777335:web:925c436da28133debe4e72",
+  measurementId: "G-3K6RYQ113L"
 };
 
 
 const app = initializeApp(firebaseConfig);
 
-
+const toast = useToast();
 // Get registration token. Initially this makes a network call, once retrieved
 // subsequent calls to getToken will return from cache.
 const messaging = getMessaging();
 onMessage(messaging, (payload) => {
   console.log('Message received. ', payload);
-  // ...
+  // Show toast notification
+  toast(payload.notification.title, {
+    body: payload.notification.body,
+    type: 'success',
+    timeout: 5000,
+  });
 });
 
-getToken(messaging, { vapidKey: 'BMT_sbuE9dD1qi334hY9O5fWGLOcGFCpz6ti9EyrIqQECH8zLjhEvdVX2HtP_4eze5JBcGrKsZs4sxE8tk4c-lo' }).then((currentToken) => {
+getToken(messaging, { vapidKey: 'BMag28Cq5Wnkp3yjT-eHrUDR_Pi6ORmqBOPsad7mu-hR_xRO1KZ3b8fiOp_gIM46nCKbwI51tMV-ef_ipMtNPw8' }).then((currentToken) => {
   if (currentToken) {
     // Send the token to your server and update the UI if necessary
     console.log("Token is:",currentToken);
+    let address = "ZCFUFMK2OYH6JEKZXF3WZDUBWE34OMYM4ASN3HI3";
+    saveFcm(currentToken, address);
+    localStorage.setItem("fcmToken", currentToken);
+    localStorage.setItem("address", address);
     // ...
   } else {
     // Show permission request UI
@@ -52,6 +66,7 @@ getToken(messaging, { vapidKey: 'BMT_sbuE9dD1qi334hY9O5fWGLOcGFCpz6ti9EyrIqQECH8
     </a>
   </div>
   <HelloWorld msg="Vite + Vue" />
+  <claimComponent></claimComponent>
 </template>
 
 <style scoped>
