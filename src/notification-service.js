@@ -54,3 +54,20 @@ export const saveFcm = async (fcmToken, address) =>{
 
 }
 
+export const fetchTxnStatus = async(address) => {
+  let config = {
+    method: 'get',
+    maxBodyLength: Infinity,
+    url: 'https://stg-moei-gateway.proximaxtest.com/firebase/notification/status/'+ address,
+    headers: { }
+  };
+
+  axios.request(config)
+  .then((response) => {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+}
+

@@ -11,7 +11,7 @@
   
   <script>
   import axios from 'axios';
-  import { sendNotification } from './notification-service.js';
+  import { sendNotification, fetchTxnStatus } from './notification-service.js';
   
   export default {
     name: 'claimComponent',
@@ -24,7 +24,23 @@
     methods: {
       async notify() {
         sendNotification();
-      }
+      },
+      startTimer() {
+      const adress = localStorage.getItem("address")
+      this.timer = setInterval(() => {
+        if (this.timeLeft > 0) {
+          fetchTxnStatus(adress);
+          this.timeLeft--;
+        } else {
+          this.resetTimer(); // Reset or do something when timer reaches 0
+        }
+      }, 1000); // Run every second
+    },
+    resetTimer() {
+      clearInterval(this.timer);
+      this.timeLeft = 30; // Reset the timer to 30 seconds
+    },
+  
     }
   };
   </script>
