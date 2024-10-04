@@ -23,7 +23,8 @@
     },
     methods: {
       async notify() {
-        sendNotification();
+        const hash = "D042FD09627C23768E82651E016523C0F7EDF577821F01BA1DE2855C1CDD86AB";
+        sendNotification(hash);
       },
       startTimer() {
       const adress = localStorage.getItem("address")

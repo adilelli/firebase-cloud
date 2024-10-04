@@ -7,7 +7,7 @@ import { useToast } from 'vue-toastification';
 import claimComponent from './claimComponent.vue';
 import { saveFcm } from './notification-service.js';
 
-
+//store - firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAuSSVXoyOBYHlc3PugjNiCtxT13DADuP0",
   authDomain: "moei-wallet.firebaseapp.com",
@@ -35,6 +35,7 @@ onMessage(messaging, (payload) => {
   });
 });
 
+//vapidkey store - firebase
 getToken(messaging, { vapidKey: 'BMag28Cq5Wnkp3yjT-eHrUDR_Pi6ORmqBOPsad7mu-hR_xRO1KZ3b8fiOp_gIM46nCKbwI51tMV-ef_ipMtNPw8' }).then((currentToken) => {
   if (currentToken) {
     // Send the token to your server and update the UI if necessary

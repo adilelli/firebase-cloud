@@ -1,10 +1,11 @@
 // src/notification-service.js
 import axios from 'axios';
 
-export const sendNotification = async () => {
+//after you announce on frontend, then you insert hash to send notification that you aanounce txn
+export const sendNotification = async (hash) => {
   let data = JSON.stringify({
     "userAdress": localStorage.getItem("address"),
-    "hash": "D042FD09627C23768E82651E016523C0F7EDF577821F01BA1DE2855C1CDD86AB",
+    "hash": hash,
     "fcmSender": localStorage.getItem("fcmToken") });
   
   let config = {
@@ -27,6 +28,7 @@ export const sendNotification = async () => {
   
 };
 
+//save you user and device credential
 export const saveFcm = async (fcmToken, address) =>{
   let data = JSON.stringify({
     "userId": address,
@@ -54,6 +56,7 @@ export const saveFcm = async (fcmToken, address) =>{
 
 }
 
+//try to get txn status
 export const fetchTxnStatus = async(address) => {
   let config = {
     method: 'get',
