@@ -35,6 +35,17 @@ onMessage(messaging, (payload) => {
   });
 });
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/firebase-messaging-sw.js')
+    .then((registration) => {
+      console.log('Service Worker registered:', registration);
+    })
+    .catch((error) => {
+      console.error('Service Worker registration failed:', error);
+    });
+}
+
+
 //vapidkey store - firebase
 getToken(messaging, { vapidKey: 'BMag28Cq5Wnkp3yjT-eHrUDR_Pi6ORmqBOPsad7mu-hR_xRO1KZ3b8fiOp_gIM46nCKbwI51tMV-ef_ipMtNPw8' }).then((currentToken) => {
   if (currentToken) {
